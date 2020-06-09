@@ -1,0 +1,19 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+#以下にはrubocopで検証したくないフォルダを指定する
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'bin/*'
+    - 'config/environments/*'
+    - 'config/application.rb'
+    - 'config/initializers/*'
+    - 'config/spring.rb'
+    - 'lib/tasks/*'
+    - 'vendor/**/*'
+    - 'path/ruby'
+
+    export s3_host_name='s3-ap-northeast-1.amazonaws.com'
+export s3_region='ap-northeast-1'
+export bucket='potepanecshoji'
