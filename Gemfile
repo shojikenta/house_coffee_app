@@ -15,7 +15,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rubocop-airbnb'
-  gem 'sqlite3', groups: %w(test development), require: false
+  gem 'sqlite3'
 end
 
 group :development do
@@ -32,7 +32,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg', groups: %w(production), require: false
+  gem 'pg', '0.20.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
