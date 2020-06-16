@@ -13,6 +13,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
 gem 'bootstrap-sass'
+gem 'execjs'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -20,6 +22,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'rails-controller-testing'
+  gem "factory_bot_rails", "~> 4.10.0"
 end
 
 group :development do
