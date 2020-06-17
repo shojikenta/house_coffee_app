@@ -14,7 +14,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'execjs'
+gem 'bcrypt', '3.1.13'
 gem 'faker'
+gem 'jquery-rails', '4.3.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
