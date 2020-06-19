@@ -20,14 +20,14 @@ RSpec.describe "永続セッション機能", type: :request do
 
   context "「ログインしたままにする」にチェックを入れずにログインする場合" do
     it "remember_tokenが空であることを確認" do
-      # クッキーを保存してログイン
       login_remember(user)
       delete logout_path
-      # クッキーを保存せずにログイン
+      # rubocop:disable all
       post login_path, params: { session: { email: user.email,
                                             password: user.password,
                                             remember_me: '0' } }
       expect(response.cookies['remember_token']).to eq nil
+      # rubocop:enable all
     end
   end
 
