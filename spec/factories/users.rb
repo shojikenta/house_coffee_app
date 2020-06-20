@@ -5,5 +5,9 @@ FactoryBot.define do
     password { "foobar" }
     password_confirmation { "foobar" }
     introduction { "はじめまして。コーヒーが大好きです！" }
+
+    trait :admin do
+      admin { true }
+    end
   end
 end
