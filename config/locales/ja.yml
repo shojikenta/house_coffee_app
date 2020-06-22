@@ -9,6 +9,7 @@
             has_many: "%{record}が存在しているので削除できません"
       models:
         user: ユーザー
+        drink: コーヒー
       attributes:
         user:
           id: ID
@@ -17,9 +18,18 @@
           password: パスワード
           password_confirmation: パスワード(確認)
           introduction: 自己紹介
-          sex: 性別
           created_at: 登録日時
           updated_at: 更新日時
+        drink: 
+          id: ID
+          name: コーヒー名
+          description: 説明
+          portion: 分量
+          tips: コツ・ポイント
+          reference: 作り方参考用URL
+          required_time: 所要時間
+          user_id: 作成者のID
+          made_memo: 作り方メモ
     date:
       abbr_day_names:
       - 日

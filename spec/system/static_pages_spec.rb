@@ -12,6 +12,31 @@ RSpec.describe "StaticPages", type: :system do
       it "正しいタイトルが表示されることを確認" do
         expect(page).to have_title full_title
       end
+
+      context "コーヒーフィード", js: true do
+        let!(:user) { create(:user) }
+        let!(:drink) { create(:drink, user: user) }
+
+        before do
+          login_for_system(user)
+        end
+
+        it "みんなのコーヒーのぺージネーションが表示されること" do
+          login_for_system(user)
+          create_list(:drink, 6, user: user)
+          visit root_path
+          expect(page).to have_content "みんなのコーヒー (#{user.drinks.count})"
+          expect(page).to have_css "div.pagination"
+          Drink.take(5).each do |d|
+            expect(page).to have_link d.name
+          end
+        end
+
+        it "「新しいコーヒーをシェアする」リンクが表示されること" do
+          visit root_path
+          expect(page).to have_link "新しいコーヒーをシェアする", href: new_drink_path
+        end
+      end
     end
   end
 

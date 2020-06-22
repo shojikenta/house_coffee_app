@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_20_014121) do
+ActiveRecord::Schema.define(version: 2020_06_20_051112) do
+
+  create_table "drinks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.float "portion"
+    t.text "tips"
+    t.text "reference"
+    t.integer "required_time"
+    t.text "made_memo"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "created_at"], name: "index_drinks_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_drinks_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"

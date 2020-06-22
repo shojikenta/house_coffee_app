@@ -1,0 +1,10 @@
+<li id="drink-<%= drink.id %>">
+  <%= link_to gravatar_for(drink.user, size: 50), drink.user %>
+  <span class="name"><%= link_to drink.name, "#" %></span>
+  <span class="description"><%= drink.description %></span><br>
+  <span class="required_time">所要時間：<%= drink.required_time %>分　</span>
+  <span class="reference"><%= link_to "作り方", drink.reference, target: :_blank %></span>
+  <span class="timestamp">
+    <%= time_ago_in_words(drink.created_at) %>前に投稿
+  </span>
+</li>
