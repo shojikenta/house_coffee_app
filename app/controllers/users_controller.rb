@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @drinks = @user.drinks.paginate(page: params[:page], per_page: 5) 
+    @drinks = @user.drinks.paginate(page: params[:page], per_page: 5)
   end
 
   def new
