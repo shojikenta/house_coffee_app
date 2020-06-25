@@ -17,4 +17,15 @@
       <% end %>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-9">
+      <% if @user.drinks.any? %>
+        <h3>コーヒー (<%= @user.drinks.count %>)</h3>
+        <ol class="drinks">
+          <%= render @drinks %>
+        </ol>
+        <%= will_paginate @drinks %>
+      <% end %>
+    </div>
+  </div>
 </div>
