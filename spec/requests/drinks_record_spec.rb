@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe "コーヒーレシピ登録", type: :request do
   let!(:user) { create(:user) }
   let!(:drink) { create(:drink, user: user) }
+  let(:picture_path) { File.join(Rails.root, 'spec/fixtures/test.jpg') }
+  let(:picture) { Rack::Test::UploadedFile.new(picture_path) }
 
   context "ログインしているユーザーの場合" do
     before do
@@ -24,7 +26,8 @@ RSpec.describe "コーヒーレシピ登録", type: :request do
                                             tips: "泡立て器を使うのがおすすめです！",
                                             reference: "https://cookpad.com/recipe/6092953",
                                             required_time: 15,
-                                            made_memo: "コップの中で混ぜるよりも、ボウルの中で混ぜる方をお勧めします！" } }
+                                            made_memo: "コップの中で混ぜるよりも、ボウルの中で混ぜる方をお勧めします！",
+                                            picture: picture } }
       }.to change(Drink, :count).by(1)
       follow_redirect!
       expect(response).to render_template('drinks/show')
@@ -38,7 +41,8 @@ RSpec.describe "コーヒーレシピ登録", type: :request do
                                             tips: "泡立て器を使うのがおすすめです！",
                                             reference: "https://cookpad.com/recipe/6092953",
                                             required_time: 15,
-                                            made_memo: "コップの中で混ぜるよりも、ボウルの中で混ぜる方をお勧めします！" } }
+                                            made_memo: "コップの中で混ぜるよりも、ボウルの中で混ぜる方をお勧めします！",
+                                            picture: picture } }
       }.not_to change(Drink, :count)
       expect(response).to render_template('drinks/new')
     end

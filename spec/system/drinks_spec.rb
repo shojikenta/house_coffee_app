@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Drinks", type: :system do
   let!(:user) { create(:user) }
-  let!(:drink) { create(:drink, user: user) }
+  let!(:drink) { create(:drink, :picture, user: user) }
 
   describe "コーヒーレシピ登録ページ" do
     before do
@@ -39,8 +39,15 @@ RSpec.describe "Drinks", type: :system do
         fill_in "コツ・ポイント", with: "泡立て器を使うのがおすすめです！"
         fill_in "作り方参考用URL", with: "https://cookpad.com/recipe/6092953"
         fill_in "所要時間", with: 15
+        attach_file "drink[picture]", "#{Rails.root}/spec/fixtures/test.jpg"
         click_button "登録する"
         expect(page).to have_content "コーヒーレシピが登録されました！"
+      end
+
+      it "画像無しで登録すると、デフォルト画像が割り当てられること" do
+        fill_in "コーヒー名", with: "ダルゴナコーヒー"
+        click_button "登録する"
+        expect(page).to have_link(href: drink_path(Drink.first))
       end
 
       it "無効な情報でコーヒー登録を行うと登録失敗のフラッシュが表示されること" do
@@ -75,6 +82,7 @@ RSpec.describe "Drinks", type: :system do
         expect(page).to have_content drink.reference
         expect(page).to have_content drink.required_time
         expect(page).to have_content drink.made_memo
+        expect(page).to have_link nil, href: drink_path(drink), class: 'drink-picture'
       end
     end
 
@@ -122,6 +130,7 @@ RSpec.describe "Drinks", type: :system do
         fill_in "コツ・ポイント", with: "泡立て器を使うのがおすすめです！"
         fill_in "作り方参考用URL", with: "henshu-https://cookpad.com/recipe/6092953"
         fill_in "所要時間", with: 15
+        attach_file "drink[picture]", "#{Rails.root}/spec/fixtures/test_2.jpg"
         click_button "更新する"
         expect(page).to have_content "コーヒーレシピ情報が更新されました！"
         expect(drink.reload.name).to eq "ダルゴナコーヒー"
@@ -130,6 +139,7 @@ RSpec.describe "Drinks", type: :system do
         expect(drink.reload.tips).to eq "泡立て器を使うのがおすすめです！"
         expect(drink.reload.reference).to eq "henshu-https://cookpad.com/recipe/6092953"
         expect(drink.reload.required_time).to eq 15
+        expect(drink.reload.picture.url).to include "test_2.jpg"
       end
 
       it "無効な更新" do
