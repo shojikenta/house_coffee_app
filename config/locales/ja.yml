@@ -30,6 +30,7 @@
           required_time: 所要時間
           user_id: 作成者のID
           made_memo: 作り方メモ
+          picture: コーヒーの写真
     date:
       abbr_day_names:
       - 日

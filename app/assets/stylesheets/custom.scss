@@ -273,3 +273,9 @@ h2.drink-name {
 .edit-drink .delete-drink {
   font-size: 15px;
 }
+
+.drink-picture img {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
