@@ -1,4 +1,8 @@
 class Drink < ApplicationRecord
+  has_many :drinks, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
   belongs_to :user
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
