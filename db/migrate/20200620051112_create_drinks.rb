@@ -8,7 +8,7 @@ class CreateDrinks < ActiveRecord::Migration[5.2]
       t.text :reference
       t.integer :required_time
       t.text :made_memo
-      t.user_id :integer
+      t.integer :drink_id
       t.references :user, foreign_key: true
 
       t.timestamps
