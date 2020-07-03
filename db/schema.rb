@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 2020_06_26_141637) do
     t.integer "required_time"
     t.text "made_memo"
     t.integer "user_id"
+    t.integer "drink_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "picture"
-    t.integer "drink_id"
     t.index ["user_id", "created_at"], name: "index_drinks_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_drinks_on_user_id"
   end
