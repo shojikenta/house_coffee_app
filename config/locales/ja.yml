@@ -10,6 +10,7 @@
       models:
         user: ユーザー
         drink: コーヒー
+        comment: コメント
       attributes:
         user:
           id: ID
@@ -31,6 +32,10 @@
           user_id: 作成者のID
           made_memo: 作り方メモ
           picture: コーヒーの写真
+        comment:
+          user_id: コメント投稿者のID
+          drink_id: コメントされたコーヒーのID
+          content: コメント
     date:
       abbr_day_names:
       - 日

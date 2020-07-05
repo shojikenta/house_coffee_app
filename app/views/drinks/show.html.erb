@@ -1,4 +1,5 @@
 <% provide(:title, "#{@drink.name}") %>
+<% @comments  = @drink.feed_comment(@drink.id) %>
 <div class="container">
   <div class="row">
     <div class="col-md-4">
@@ -33,6 +34,10 @@
       <div class="drink-info">
         <h5>作り方メモ：</h5><h4><%= @drink.made_memo %></h4>
       </div>
+    </div>
+    <div class="comment">
+      <%= render "comments/feed_comments" %>
+      <%= render "comments/new" %>
     </div>
   </div>
 </div>

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
   resources :drinks
   resources :relationships, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
   post   "favorites/:drink_id/create"  => "favorites#create"
   delete "favorites/:drink_id/destroy" => "favorites#destroy"
 end
