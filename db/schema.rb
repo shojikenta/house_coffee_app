@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_141637) do
+ActiveRecord::Schema.define(version: 2020_07_04_013657) do
 
   create_table "drinks", force: :cascade do |t|
     t.string "name"
@@ -20,13 +20,21 @@ ActiveRecord::Schema.define(version: 2020_06_26_141637) do
     t.text "reference"
     t.integer "required_time"
     t.text "made_memo"
-    t.integer "user_id"
     t.integer "drink_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "picture"
     t.index ["user_id", "created_at"], name: "index_drinks_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_drinks_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "drink_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "drink_id"], name: "index_favorites_on_user_id_and_drink_id", unique: true
   end
 
   create_table "relationships", force: :cascade do |t|

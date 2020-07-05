@@ -22,12 +22,10 @@ RSpec.describe "永続セッション機能", type: :request do
     it "remember_tokenが空であることを確認" do
       login_remember(user)
       delete logout_path
-      # rubocop:disable all
       post login_path, params: { session: { email: user.email,
                                             password: user.password,
                                             remember_me: '0' } }
       expect(response.cookies['remember_token']).to eq nil
-      # rubocop:enable all
     end
   end
 

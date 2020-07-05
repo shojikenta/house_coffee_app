@@ -11,7 +11,6 @@ RSpec.describe "ユーザー登録", type: :request do
   end
 
   it "有効なユーザーで登録" do
-    # rubocop:disable all
     expect {
       post users_path, params: { user: { name: "Example User",
                                          email: "user@example.com",
@@ -33,5 +32,4 @@ RSpec.describe "ユーザー登録", type: :request do
     }.not_to change(User, :count)
     expect(is_logged_in?).not_to be_truthy
   end
-  # rubocop:enable all
 end

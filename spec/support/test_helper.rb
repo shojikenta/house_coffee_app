@@ -1,4 +1,3 @@
-# rubocop:disable all
 include ApplicationHelper
 
 def is_logged_in?
@@ -34,4 +33,3 @@ def current_user
     end
   end
 end
-# rubocop:enable all
