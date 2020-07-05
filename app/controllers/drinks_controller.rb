@@ -8,6 +8,7 @@ class DrinksController < ApplicationController
 
   def show
     @drink = Drink.find(params[:id])
+    @comment = Comment.new
   end
 
   def create

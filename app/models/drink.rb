@@ -1,7 +1,8 @@
 class Drink < ApplicationRecord
   belongs_to :user
-  has_many :favorites, dependent: :destroy
   has_many :drinks, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
                                   dependent: :destroy
@@ -12,7 +13,10 @@ class Drink < ApplicationRecord
   validates :description, length: { maximum: 140 }
   validates :tips, length: { maximum: 50 }
   validates :made_memo, length: { maximum: 200 }
-  validate  :picture_size
+
+  def feed_comment(drink_id)
+    Comment.where("drink_id = ?", drink_id)
+  end
 
   private
 
