@@ -14,5 +14,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
+    @drink = @comment.drink
+    if current_user.id == @comment.user_id
+      @comment.destroy
+      flash[:success] = "コメントを削除しました"
+    end
+    redirect_to drink_url(@drink)
   end
 end

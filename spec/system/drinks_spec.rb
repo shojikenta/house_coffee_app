@@ -156,5 +156,22 @@ RSpec.describe "Drinks", type: :system do
         expect(page).to have_content 'コーヒーレシピが削除されました'
       end
     end
+
+    context "コメントの登録＆削除" do
+      it "自分の料理に対するコメントの登録＆削除が正常に完了すること" do
+        login_for_system(user)
+        visit drink_path(drink)
+        fill_in "comment_content", with: "簡単でいいですね"
+        click_button "コメント"
+        within find("#comment-#{Comment.last.id}") do
+          expect(page).to have_selector 'span', text: user.name
+          expect(page).to have_selector 'span', text: '簡単でいいですね'
+        end
+        expect(page).to have_content "コメントを追加しました！"
+        click_link "削除", href: comment_path(Comment.last)
+        expect(page).not_to have_selector 'span', text: '簡単でいいですね'
+        expect(page).to have_content "コメントを削除しました"
+      end
+    end
   end
 end
