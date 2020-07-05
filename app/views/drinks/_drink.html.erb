@@ -1,9 +1,11 @@
 <li id="drink-<%= drink.id %>">
+  <% @drink = drink %>
   <%= link_to gravatar_for(drink.user, size: 50), drink.user %>
   <span class="name"><%= link_to drink.name, drink_path(drink) %></span>
   <span>
     <%= link_to((image_tag drink.picture.url), drink_path(drink.id), class: 'drink-picture') if drink.picture.url.present? %>
   </span>
+  <%= render 'users/favorite_form' %>
   <span class="description"><%= drink.description %></span><br>
   <span class="required_time">所要時間：<%= drink.required_time %>分　</span>
   <span class="reference"><%= link_to "作り方", drink.reference, target: :_blank %></span>

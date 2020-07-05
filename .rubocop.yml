@@ -7,12 +7,69 @@ Rails:
 #以下にはrubocopで検証したくないフォルダを指定する
 AllCops:
   Exclude:
+    - 'bin/**'
+    - 'config/**/*'
     - 'db/**/*'
-    - 'bin/*'
-    - 'config/environments/*'
-    - 'config/application.rb'
-    - 'config/initializers/*'
-    - 'config/spring.rb'
-    - 'lib/tasks/*'
-    - 'vendor/**/*'
-    - 'path/ruby'
+    - 'vendor/**/**/*'
+    - 'spec/*'
+
+LineLength:
+  Max: 110
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Layout/FirstHashElementLineBreak:
+  Enabled: false
+
+Airbnb/OptArgParameters:
+  Enabled: false
+
+Style/ColonMethodCall:
+  Enabled: false
+
+Layout/IndentationConsistency:
+  Enabled: false
+
+Layout/IndentationWidth:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Style/MultilineTernaryOperator:
+  Enabled: false
+
+Airbnb/DefaultScope:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Exclude:
+    - 'app/uploaders/*'
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Layout/FirstArrayElementLineBreak:
+  Enabled: false
+
+Airbnb/RiskyActiverecordInvocation:
+  Enabled: false
+
+Layout/MultilineArrayBraceLayout:
+  Enabled: false
+
+Airbnb/ContinuationSlash:
+  Enabled: false

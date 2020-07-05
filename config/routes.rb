@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get    :use_of_terms, to: 'static_pages#terms'
   get    :signup,       to: 'users#new'
   get    :login,        to: 'sessions#new'
+  get    :favorites,    to: 'favorites#index'
   post   :login,        to: 'sessions#create'
   delete :logout,       to: 'sessions#destroy'
   resources :users do
@@ -17,4 +18,6 @@ Rails.application.routes.draw do
   end
   resources :drinks
   resources :relationships, only: [:create, :destroy]
+  post   "favorites/:drink_id/create"  => "favorites#create"
+  delete "favorites/:drink_id/destroy" => "favorites#destroy"
 end

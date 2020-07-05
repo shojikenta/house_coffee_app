@@ -30,7 +30,6 @@ RSpec.describe "Drinks", type: :system do
       end
     end
 
-
     context "コーヒーレシピ登録処理" do
       it "有効な情報でコーヒーレシピ登録を行うと登録成功のフラッシュが表示されること" do
         fill_in "コーヒー名", with: "ダルゴナコーヒー"
