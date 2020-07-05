@@ -13,7 +13,7 @@ class Drink < ApplicationRecord
   validates :description, length: { maximum: 140 }
   validates :tips, length: { maximum: 50 }
   validates :made_memo, length: { maximum: 200 }
-  
+
   def feed_comment(drink_id)
     Comment.where("drink_id = ?", drink_id)
   end
