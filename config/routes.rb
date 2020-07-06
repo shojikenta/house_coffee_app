@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :drinks
   resources :relationships, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]
+  resources :notifications, only: :index
   post   "favorites/:drink_id/create"  => "favorites#create"
   delete "favorites/:drink_id/destroy" => "favorites#destroy"
 end
