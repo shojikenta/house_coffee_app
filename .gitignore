@@ -6,7 +6,8 @@
 
 # Ignore bundler config.
 /.bundle
-/vendor
+/vendor/bundle
+/vendor/.keep
 /public/uploads/*
 
 # Ignore the default SQLite database.

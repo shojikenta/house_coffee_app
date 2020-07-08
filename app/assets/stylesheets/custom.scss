@@ -1,6 +1,4 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
-
+// ミックスイン
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
@@ -8,74 +6,100 @@
 }
 
 // 全ページ共通
+#demo-main {
+  top: 163px;
+  height: calc(100% - 163px);
+}
+
+// body 
 body {
-  padding-top: 60px;
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
 }
 
-section {
-  overflow: auto;
+#fh5co-wrapper {
+  overflow-x: hidden;
+  position: relative;
 }
 
-textarea {
-  resize: vertical;
-}
-
-.center {
-  text-align: center;
-  h1 {
-    margin-bottom: 10px;
-  }
-}
-
-// テキストの見栄え
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
-}
-
-h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: #777;
-}
-
-p {
-  font-size: 1.1em;
-  line-height: 1.7em;
+#fh5co-page {
+  position: relative;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
 }
 
 // ヘッダー
-.navbar ul{
-  margin-top: 12px;
-  margin-bottom: 12px;
-}
- #logo {
-  float: left;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  img {
-    width: 70%;
-  }
+#fh5co-header{
+	position: relative;
+	margin-bottom: 0;
+	z-index: 9999999;
 }
 
-// フッター
-footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
-  small {
-    float: center;
-  }
+#fh5co-header-section{
+  background: rgba($brand-white,1);
+  float: left;
+	// position: fixed;
+	// top: 0;
+	// left: 0;
+	padding:0;
+	width: 100%;
+	// z-index: 2;
+	-webkit-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+	-moz-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+	-ms-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+	-o-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+	box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+
+	@media screen and (max-width: $screen-sm) {
+		padding: 2.4em 0;
+	}
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.nav-header{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+#top-logo {
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: 700;
+  float: left;
+  margin-bottom: 0;
+  margin-top: 0.9em;
+}
+
+.sf-menu a {
+	//color: rgba($brand-black,.8);
+	padding: 2.4em 1.3em!important;
+	font-weight: normal;
+	border-left: none;
+	border-top: none; 
+	border-top: none;
+	text-decoration: none;
+	zoom: 1; 
+	font-size: 14px;
+	border-bottom: none!important;
+	font-weight: 400;
+	text-transform: uppercase;
+
+	&:hover,&:focus,&.active{
+		background: $brand-primary !important;
+		color: $brand-white !important;
+	}
 }
 
 //ユーザー登録
