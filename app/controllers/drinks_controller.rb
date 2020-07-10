@@ -6,6 +6,9 @@ class DrinksController < ApplicationController
     @drink = Drink.new
   end
 
+  def index
+  end
+
   def show
     @drink = Drink.find(params[:id])
     @comment = Comment.new

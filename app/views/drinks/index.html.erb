@@ -1,0 +1,14 @@
+<% provide(:title, 'コーヒレシピ一覧') %>
+<div id="fh5co-portfolio">
+  <div class="container">
+    <% if @search_word.present? %>
+      <h3>”<%= @search_word %>”の検索結果：<%= @drinks.count %>件</h3>
+    <% else %>
+      <h3>コーヒーレシピ一覧</h3>
+    <% end %>
+    <ul class="drinks">
+      <%= render @drinks %>
+    </ul>
+    <%= will_paginate %>
+  </div>
+</div>
