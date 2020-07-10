@@ -1,43 +1,45 @@
 <% provide(:title, "#{@drink.name}") %>
 <% @comments  = @drink.feed_comment(@drink.id) %>
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <span class="picture">
-        <%= link_to((image_tag @drink.picture.thumb400.url), drink_path(@drink.id), class: 'drink-picture') if @drink.picture.url.present? %>
-      </span>
-      <%= render 'users/favorite_form' %>
-    </div>
-    <div class="col-md-8">
-      <h2 class="drink-name"><%= @drink.name %></h2>
-      <div class="change-drink">
-        <% if current_user == @drink.user %>
-          <%= link_to "編集", edit_drink_path(@drink), class: 'edit-drink' %>　
-        <% end %>
-        <% if current_user.admin? || (current_user == @drink.user) %>
-          <%= link_to "削除", drink_path(@drink), method: :delete, class: 'delete-drink',
-                                        data: { confirm: "本当に削除しますか？" } %>
-        <% end %>
+<div id="fh5co-portfolio">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <span class="picture">
+          <%= link_to((image_tag @drink.picture.thumb400.url), drink_path(@drink.id), class: 'drink-picture') if @drink.picture.url.present? %>
+        </span>
+        <%= render 'users/favorite_form' %>
       </div>
-    </div>
-    <h4><%= @drink.description %></h4>
-    <h4 class="drink-reference">作り方：<%= link_to "#{@drink.reference}", @drink.reference, target: "_blank" %></h4>
-    <h4 class="drink-portion">分量：<%= @drink.portion %> 人分</h4>
-    <div class="tips">
-      <h5 class="title-tips">コツ・ポイント</h5>
-      <h5><%= @drink.tips %></h5>
-    </div>
-    <div class="show-drink-other-info">
-      <div class="drink-info">
-        <h5>所要時間：</h5><h4><%= @drink.required_time %></h4> <h5>分</h5>
+      <div class="col-md-8">
+        <h2 class="drink-name"><%= @drink.name %></h2>
+        <div class="change-drink">
+          <% if current_user == @drink.user %>
+            <%= link_to "編集", edit_drink_path(@drink), class: 'edit-drink' %>　
+          <% end %>
+          <% if current_user.admin? || (current_user == @drink.user) %>
+            <%= link_to "削除", drink_path(@drink), method: :delete, class: 'delete-drink',
+                                          data: { confirm: "本当に削除しますか？" } %>
+          <% end %>
+        </div>
       </div>
-      <div class="drink-info">
-        <h5>作り方メモ：</h5><h4><%= @drink.made_memo %></h4>
+      <h4><%= @drink.description %></h4>
+      <h4 class="drink-reference">作り方：<%= link_to "#{@drink.reference}", @drink.reference, target: "_blank" %></h4>
+      <h4 class="drink-portion">分量：<%= @drink.portion %> 人分</h4>
+      <div class="tips">
+        <h5 class="title-tips">コツ・ポイント</h5>
+        <h5><%= @drink.tips %></h5>
       </div>
-    </div>
-    <div class="comment">
-      <%= render "comments/feed_comments" %>
-      <%= render "comments/new" %>
+      <div class="show-drink-other-info">
+        <div class="drink-info">
+          <h5>所要時間：</h5><h4><%= @drink.required_time %></h4> <h5>分</h5>
+        </div>
+        <div class="drink-info">
+          <h5>作り方メモ：</h5><h4><%= @drink.made_memo %></h4>
+        </div>
+      </div>
+      <div class="comment">
+        <%= render "comments/feed_comments" %>
+        <%= render "comments/new" %>
+      </div>
     </div>
   </div>
 </div>

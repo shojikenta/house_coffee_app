@@ -3,23 +3,23 @@
     <div class="container">
       <div class="nav-header">
         <div id="top-logo">
-          <%= link_to(image_tag("house_coffee.png", :alt => "house_coffeeのロゴ写真"), root_url, id: 'logo') %>
+          <%= link_to(image_tag("/images/house_coffee.png", :alt => "house_coffeeのロゴ写真"), root_url, id: 'logo') %>
         </div>
         <nav id="fh5co-menu-wrap">
           <ul class="nav-header sf-menu a">
-            <li><%= link_to 'House Coffeeとは？', about_path %></li>
+            <li><%= link_to about_path do %><span class="fas fa-check"></span> <span>House Coffeeとは？</span><% end %></li>
             <% if logged_in? %>
               <% if current_user.notification == true %>
                 <li class="new_notification header-link">
               <% else %>
                 <li class="no_notification header-link">
               <% end %>
-              <%= link_to notifications_path do %><span>通知</span><% end %>
+              <%= link_to notifications_path do %><span class="fas fa-bell"> <span>通知</span><% end %>
               </li>
-              <li><%= link_to 'お気に入り', favorites_path %></li>
+              <li><%= link_to favorites_path do %><span class="fas fa-heart"></span> <span>お気に入り</span><% end %></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  アカウント <b class="caret"></b>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fas fa-user">
+                  My Page <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to 'プロフィール', current_user %></li>
@@ -27,11 +27,12 @@
                   <li><%= link_to 'ユーザー', users_path %></li>
                   <li class="divider"></li>
                   <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>
+                  <li class="divider"></li>
                 </ul>
               </li>
             <% else %>
-              <li><%= link_to 'ユーザー登録(無料)', signup_path %></li>
-              <li><%= link_to 'ログイン', login_path %></li>
+              <li><%= link_to signup_path do %><span class="fas fa-user-plus"></span> <span>ユーザー登録(無料)</span><% end %></li>
+              <li><%= link_to login_path do %><span class="fas fa-home"></span> <span>ログイン</span><% end %></li>
             <% end %>
           </ul>
         </nav>

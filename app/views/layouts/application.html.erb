@@ -10,10 +10,12 @@
       <div id="fh5co-page">
         <div id="demo-main">
           <%= render 'layouts/header' %>
-          <% flash.each do |message_type, message| %>
-            <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-          <% end %>
-          <%= yield %>
+          <div class="body-page">
+            <% flash.each do |message_type, message| %>
+              <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+            <% end %>
+            <%= yield %>
+          </div>
         </div>
         <%= render 'layouts/footer' %>
       </div>

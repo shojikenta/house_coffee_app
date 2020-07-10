@@ -17,4 +17,4 @@ Rails.application.config.assets.precompile += %w(
   superfish.js respond.min.js modernizr-2.6.2.min.js \
   main.js jquery.waypoints.min.js jquery.stellar.min.js \
   jquery.min.js jquery.flexslider-min.js jquery.easing.1.3.js \
-  jquery.countTo.js hoverlntent.js google_map.js bootstrap.min.js)
+  jquery.countTo.js hoverlntent.js google_map.js bootstrap.min.js custom.js)
