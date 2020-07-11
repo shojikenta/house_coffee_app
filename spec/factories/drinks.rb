@@ -11,6 +11,23 @@ FactoryBot.define do
     created_at { Time.current }
   end
 
+  trait :items do
+    items_attributes {
+                             [
+                               { name: "コーヒー粉", remarks: "90g" },
+                               { name: "コーヒー豆", remarks: "50g" },
+                               { name: "牛乳", remarks: "90g" },
+                               { name: "豆乳", remarks: "50g" },
+                               { name: "砂糖", remarks: "大さじ1" },
+                               { name: "お湯", remarks: "200g" },
+                               { name: "ケトル", remarks: "1つ" },
+                               { name: "氷", remarks: "適量" },
+                               { name: "ドリッパー", remarks: "1つ" },
+                               { name: "タイマー", remarks: "1つ" }
+                             ]
+    }
+  end
+
   trait :yesterday do
     created_at { 1.day.ago }
   end

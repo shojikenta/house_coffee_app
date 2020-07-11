@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Drinks", type: :system do
   let!(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
+  let!(:drink) { create(:drink, :picture, :items, user: user) }
   let!(:drink) { create(:drink, :picture, user: user) }
 
   describe "コーヒーレシピ登録ページ" do
@@ -27,6 +29,13 @@ RSpec.describe "Drinks", type: :system do
         expect(page).to have_content '作り方参考用URL'
         expect(page).to have_content '所要時間 [分]'
         expect(page).to have_content '作り方メモ'
+        expect(page).to have_css 'label[for=drink_items_attributes_0_name]', text: '必要なモノ（10種類まで登録可）', count: 1
+        expect(page).to have_css 'label[for=drink_items_attributes_0_remarks]', text: '備考', count: 1
+      end
+
+      it "必要なモノ入力部分が10行表示されること" do
+        expect(page).to have_css 'input.item_name', count: 10
+        expect(page).to have_css 'input.item_remarks', count: 10
       end
     end
 
@@ -38,6 +47,8 @@ RSpec.describe "Drinks", type: :system do
         fill_in "コツ・ポイント", with: "泡立て器を使うのがおすすめです！"
         fill_in "作り方参考用URL", with: "https://cookpad.com/recipe/6092953"
         fill_in "所要時間", with: 15
+        fill_in "drink[items_attributes][0][name]", with: "コーヒー豆"
+        fill_in "drink[items_attributes][0][remarks]", with: "90g"
         attach_file "drink[picture]", "#{Rails.root}/spec/fixtures/test.jpg"
         click_button "登録する"
         expect(page).to have_content "コーヒーレシピが登録されました！"
@@ -82,6 +93,10 @@ RSpec.describe "Drinks", type: :system do
         expect(page).to have_content drink.required_time
         expect(page).to have_content drink.made_memo
         expect(page).to have_link nil, href: drink_path(drink), class: 'drink-picture'
+        drink.items.each do |i|
+          expect(page).to have_content i.name
+          expect(page).to have_content i.remarks
+        end
       end
     end
 
@@ -118,6 +133,8 @@ RSpec.describe "Drinks", type: :system do
         expect(page).to have_content '作り方参考用URL'
         expect(page).to have_content '所要時間 [分]'
         expect(page).to have_content '作り方メモ'
+        expect(page).to have_css 'p.title-item-name', text: '必要なモノ（10種類まで登録可）', count: 1
+        expect(page).to have_css 'p.title-item-remarks', text: '備考', count: 1
       end
     end
 
@@ -158,7 +175,7 @@ RSpec.describe "Drinks", type: :system do
     end
 
     context "コメントの登録＆削除" do
-      it "自分の料理に対するコメントの登録＆削除が正常に完了すること" do
+      it "自分のコーヒーレシピに対するコメントの登録＆削除が正常に完了すること" do
         login_for_system(user)
         visit drink_path(drink)
         fill_in "comment_content", with: "簡単でいいですね"
@@ -171,6 +188,48 @@ RSpec.describe "Drinks", type: :system do
         click_link "削除", href: comment_path(Comment.last)
         expect(page).not_to have_selector 'span', text: '簡単でいいですね'
         expect(page).to have_content "コメントを削除しました"
+      end
+    end
+
+    context "検索機能" do
+      context "ログインしている場合" do
+        before do
+          login_for_system(user)
+          visit root_path
+        end
+
+        it "ログイン後の各ページに検索窓が表示されていること" do
+          expect(page).to have_css 'form#drink_search'
+          visit about_path
+          expect(page).to have_css 'form#drink_search'
+          visit use_of_terms_path
+          expect(page).to have_css 'form#drink_search'
+          visit users_path
+          expect(page).to have_css 'form#drink_search'
+          visit user_path(user)
+          expect(page).to have_css 'form#drink_search'
+          visit edit_user_path(user)
+          expect(page).to have_css 'form#drink_search'
+          visit following_user_path(user)
+          expect(page).to have_css 'form#drink_search'
+          visit followers_user_path(user)
+          expect(page).to have_css 'form#drink_search'
+          visit drinks_path
+          expect(page).to have_css 'form#drink_search'
+          visit drink_path(drink)
+          expect(page).to have_css 'form#drink_search'
+          visit new_drink_path
+          expect(page).to have_css 'form#drink_search'
+          visit edit_drink_path(drink)
+          expect(page).to have_css 'form#drink_search'
+        end
+      end
+
+      context "ログインしていない場合" do
+        it "検索窓が表示されないこと" do
+          visit root_path
+          expect(page).not_to have_css 'form#drink_search'
+        end
       end
     end
   end

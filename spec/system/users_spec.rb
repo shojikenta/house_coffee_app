@@ -151,6 +151,15 @@ RSpec.describe "Users", type: :system do
       it "コーヒーのページネーションが表示されていることを確認" do
         expect(page).to have_css "div.pagination"
       end
+
+      it "必要なモノの情報が表示されていることを確認" do
+        Drink.take(5).each do |drink|
+          drink.items.each do |i|
+            expect(page).to have_content i.name
+            expect(page).to have_content i.remarks
+          end
+        end
+      end
     end
 
     context "ユーザーのフォロー/アンフォロー処理", js: true do

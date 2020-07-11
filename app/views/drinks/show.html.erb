@@ -23,6 +23,23 @@
       </div>
       <h4><%= @drink.description %></h4>
       <h4 class="drink-reference">作り方：<%= link_to "#{@drink.reference}", @drink.reference, target: "_blank" %></h4>
+        <div class="items">
+          <h5 class="title-items">必要なモノ</h5>
+          <div class="row">
+            <div class="col-md-8">
+              <table class="item">
+                <% @drink.items.each do |i| %>
+                  <% if i.name.present? %>
+                    <tr>
+                      <td><%= i.name %></td>
+                      <td><%= i.remarks %></td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </table>
+            </div>
+          </div>
+        </div>
       <h4 class="drink-portion">分量：<%= @drink.portion %> 人分</h4>
       <div class="tips">
         <h5 class="title-tips">コツ・ポイント</h5>

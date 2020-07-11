@@ -14,7 +14,7 @@ AllCops:
     - 'spec/*'
 
 LineLength:
-  Max: 110
+  Max: 120
 
 Style/TrailingCommaInHashLiteral:
   Enabled: false

@@ -11,6 +11,14 @@
       <h3 class="drink-name"><%= link_to drink.name, drink_path(drink) %></h3>
       <div class="drink-description"><%= drink.description %></div>
       <div class="drink-user">shared by <%= link_to drink.user.name, user_path(drink.user) %></div>
+      <div class="drink-item">
+        <p class="title-item-mini">【必要なモノ】</p>
+        <% drink.items.each_with_index do |ing, i| %>
+          <% if ing.name.present? %>
+            <%= "｜" unless i == 0 %><%= ing.name %>: <%= ing.remarks %>
+          <% end %>
+        <% end %>
+      </div>
       <div class="drink-other-info">
         <span class="required_time">所要時間：<%= drink.required_time %>分　</span>
       </div>

@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "コーヒーレシピ登録", type: :request do
   let!(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
   let!(:drink) { create(:drink, user: user) }
   let(:picture_path) { File.join(Rails.root, 'spec/fixtures/test.jpg') }
   let(:picture) { Rack::Test::UploadedFile.new(picture_path) }
@@ -46,12 +47,71 @@ RSpec.describe "コーヒーレシピ登録", type: :request do
       }.not_to change(Drink, :count)
       expect(response).to render_template('drinks/new')
     end
+
+    context "必要なモノ有りのコーヒーレシピ登録" do
+      it "有効なレシピデータで登録できること" do
+        expect {
+          post drinks_path, params: { drink: { name: "話題のダルゴナコーヒーを作ろう！",
+                                               description: "冬に食べたくなる、身体が温まるコーヒーレシピです",
+                                               portion: 1.5,
+                                               tips: "泡立て器を使うのがおすすめです！",
+                                               reference: "https://cookpad.com/recipe/6092953",
+                                               required_time: 15,
+                                               picture: picture,
+                                               items_attributes: [
+                                                 name: "コーヒー粉",
+                                                 remarks: "90g"] } }
+        }.to change(Drink, :count).by(1)
+        redirect_to Drink.first
+        follow_redirect!
+        expect(response).to render_template('drinks/show')
+      end
+
+      it "必要なモノのデータも同時に増えること" do
+        expect {
+          post drinks_path, params: { drink: { name: "話題のダルゴナコーヒーを作ろう！",
+                                               items_attributes: [
+                                                 name: "コーヒー粉",
+                                                 remarks: "90g"] } }
+        }.to change(Item, :count).by(1)
+      end
+
+      it "無効なコーヒーレシピデータでは登録できないこと" do
+        expect {
+          post drinks_path, params: { drink: { name: "",
+                                               description: "冬に食べたくなる、身体が温まるコーヒーレシピです",
+                                               portion: 1.5,
+                                               tips: "泡立て器を使うのがおすすめです！",
+                                               reference: "https://cookpad.com/recipe/6092953",
+                                               required_time: 15,
+                                               picture: picture,
+                                               items_attributes: [
+                                                 name: "コーヒー粉",
+                                                 remarks: "90g"] } }
+        }.not_to change(Drink, :count)
+        expect(response).to render_template('drinks/new')
+      end
+    end
+
+    context "必要なモノ無しのコーヒーレシピ登録" do
+      it "正常に完了すること" do
+        expect {
+          post drinks_path, params: { drink: { name: "話題のダルゴナコーヒーを作ろう！" } }
+        }.to change(Drink, :count).by(1)
+      end
+
+      it "必要なモノのデータは増えないこと" do
+        expect {
+          post drinks_path, params: { drink: { name: "話題のダルゴナコーヒーを作ろう！" } }
+        }.not_to change(Item, :count)
+      end
+    end
   end
 
   context "ログインしていないユーザーの場合" do
     it "ログイン画面にリダイレクトすること" do
       get new_drink_path
-      expect(response).to have_http_status "302"
+      expect(response).to have_http_status "152"
       expect(response).to redirect_to login_path
     end
   end
