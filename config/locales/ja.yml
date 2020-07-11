@@ -11,6 +11,7 @@
         user: ユーザー
         drink: コーヒー
         comment: コメント
+        item: 必要なモノ
       attributes:
         user:
           id: ID
@@ -36,6 +37,10 @@
           user_id: コメント投稿者のID
           drink_id: コメントされたコーヒーのID
           content: コメント
+        item:
+          drink_id: 紐づいたコーヒーのID
+          name: 必要なモノ（10種類まで登録可）
+          remark: 備考
     date:
       abbr_day_names:
       - 日

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :item do
-    name "MyString"
-    drink_id 1
-    remarks "MyString"
+    name { "ケトル" }
+    remarks { "1つ" }
+    association :drink
   end
 end

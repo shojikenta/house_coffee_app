@@ -3,6 +3,8 @@ class Drink < ApplicationRecord
   has_many :drinks, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :items, dependent: :destroy
+  accepts_nested_attributes_for :items
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
                                   dependent: :destroy
