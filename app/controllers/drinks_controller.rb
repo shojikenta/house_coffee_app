@@ -4,6 +4,7 @@ class DrinksController < ApplicationController
 
   def new
     @drink = Drink.new
+    @drink.items.build
   end
 
   def index
@@ -60,7 +61,8 @@ class DrinksController < ApplicationController
                                   :reference,
                                   :required_time,
                                   :made_memo,
-                                  :picture)
+                                  :picture,
+                                  items_attributes: [:id, :name, :remarks])
   end
 
   def correct_user

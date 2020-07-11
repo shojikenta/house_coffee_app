@@ -22,6 +22,28 @@
             <%= f.label :portion %> [人分]　<span class="input-unneed">※任意</span>
             <%= f.text_field :portion, class: 'form-control', id: 'drink_portion' %>
           </div>
+          <div class="row">
+            <div class="col-md-9">
+              <p class="title-item-name">必要なモノ（10種類まで登録可）　<span class="input-unneed">※任意</span></p>
+            </div>
+            <div class="col-md-3">
+              <p class="title-item-remarks">備考　<span class="input-unneed">※任意</span></p>
+            </div>
+          </div>
+          <%= f.fields_for :items do |i| %>
+            <div class="row">
+              <div class="col-md-9">
+                <div class = 'form-group'>
+                  <%= i.text_field :name, class: 'form-control item_name' %>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class = 'form-group'>
+                  <%= i.text_field :remarks, class: 'form-control item_remarks' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
           <div class = 'form-group'>
             <%= f.label :tips %>　<span class="input-unneed">※任意</span>
             <%= f.text_field :tips, size: "30x4", class: 'form-control', id: 'drink_tips' %>

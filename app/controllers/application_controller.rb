@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def set_search
     if logged_in?
-      @search_word = params[:q][:name_cont] if params[:q]
+      @search_word = params[:q][:name_or_items_name_cont] if params[:q]
       @q = current_user.feed.paginate(page: params[:page], per_page: 5).ransack(params[:q])
       @drinks = @q.result(distinct: true)
     end

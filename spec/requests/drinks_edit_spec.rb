@@ -19,7 +19,11 @@ RSpec.describe "コーヒーレシピ編集", type: :request do
                                                   reference: "https://cookpad.com/recipe/6092953",
                                                   required_time: 15,
                                                   made_memo: "コップの中で混ぜるよりも、ボウルの中で混ぜる方をお勧めします！",
-                                                  picture: picture2 } }
+                                                  picture: picture2,
+                                                  items_attributes: [
+                                                    name: "編集-コーヒー粉",
+                                                    remarks: "編集-90g"] } }
+
       redirect_to drink
       follow_redirect!
       expect(response).to render_template('drinks/show')
