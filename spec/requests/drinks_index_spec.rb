@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "コーヒーレシピ一覧ページ", type: :request do
   let!(:user) { create(:user) }
-  let!(:drink) { create(:drink, user: user) }
+  let!(:drink) { create(:drink, :items, user: user) }
 
   context "ログインしているユーザーの場合" do
     it "レスポンスが正常に表示されること" do
@@ -10,6 +10,12 @@ RSpec.describe "コーヒーレシピ一覧ページ", type: :request do
       get drinks_path
       expect(response).to have_http_status "200"
       expect(response).to render_template('drinks/index')
+    end
+
+    it "CSV出力がエラーなく行えること" do
+      login_for_request(user)
+      get drinks_path(format: :csv)
+      expect(response).to have_http_status "200"
     end
   end
 

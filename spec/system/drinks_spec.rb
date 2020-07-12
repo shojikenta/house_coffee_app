@@ -233,4 +233,26 @@ RSpec.describe "Drinks", type: :system do
       end
     end
   end
+
+  describe "コーヒーレシピ一覧ページ" do
+    context "CSV出力機能" do
+      before do
+        login_for_system(user)
+      end
+
+      it "トップページからCSV出力が行えること" do
+        visit root_path
+        click_link 'コーヒーレシピ一覧をCSV出力'
+        expect(page.response_headers['Content-Disposition']).to \
+          include("コーヒーレシピ一覧_#{Time.current.strftime('%Y%m%d_%H%M')}.csv")
+      end
+
+      it "プロフィールページからCSV出力が行えること" do
+        visit user_path(user)
+        click_link 'コーヒーレシピ一覧をCSV出力'
+        expect(page.response_headers['Content-Disposition']).to \
+          include("コーヒーレシピ一覧_#{Time.current.strftime('%Y%m%d_%H%M')}.csv")
+      end
+    end
+  end
 end
