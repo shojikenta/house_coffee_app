@@ -224,35 +224,6 @@ RSpec.describe "Drinks", type: :system do
           expect(page).to have_css 'form#drink_search'
         end
       end
-
-      context "ログインしていない場合" do
-        it "検索窓が表示されないこと" do
-          visit root_path
-          expect(page).not_to have_css 'form#drink_search'
-        end
-      end
-    end
-  end
-
-  describe "コーヒーレシピ一覧ページ" do
-    context "CSV出力機能" do
-      before do
-        login_for_system(user)
-      end
-
-      it "トップページからCSV出力が行えること" do
-        visit root_path
-        click_link 'コーヒーレシピ一覧をCSV出力'
-        expect(page.response_headers['Content-Disposition']).to \
-          include("コーヒーレシピ一覧_#{Time.current.strftime('%Y%m%d_%H%M')}.csv")
-      end
-
-      it "プロフィールページからCSV出力が行えること" do
-        visit user_path(user)
-        click_link 'コーヒーレシピ一覧をCSV出力'
-        expect(page.response_headers['Content-Disposition']).to \
-          include("コーヒーレシピ一覧_#{Time.current.strftime('%Y%m%d_%H%M')}.csv")
-      end
     end
   end
 end
