@@ -224,13 +224,6 @@ RSpec.describe "Drinks", type: :system do
           expect(page).to have_css 'form#drink_search'
         end
       end
-
-      context "ログインしていない場合" do
-        it "検索窓が表示されないこと" do
-          visit root_path
-          expect(page).not_to have_css 'form#drink_search'
-        end
-      end
     end
   end
 end

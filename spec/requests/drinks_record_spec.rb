@@ -107,12 +107,4 @@ RSpec.describe "コーヒーレシピ登録", type: :request do
       end
     end
   end
-
-  context "ログインしていないユーザーの場合" do
-    it "ログイン画面にリダイレクトすること" do
-      get new_drink_path
-      expect(response).to have_http_status "152"
-      expect(response).to redirect_to login_path
-    end
-  end
 end
