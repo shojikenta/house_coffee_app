@@ -82,7 +82,7 @@ jobs:
             heroku config:set S3_BUCKET_NAME=$S3_BUCKET
             heroku config:set S3_REGION=$S3_REGION
             heroku run bin/rails db:migrate
-            heroku run bin/rails runner db/seedsgit.rb
+            heroku run bin/rails runner db/seeds.rb
 
 orbs:
   build-tools: circleci/build-tools@2.6.3
