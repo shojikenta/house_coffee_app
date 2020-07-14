@@ -2,9 +2,12 @@ version: '3'
 services:
   db:
     image: postgres
+    env_file:
+      - ./.env
     environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST_AUTH_METHOD: 'trust'
-      POSTGRES_PASSWORD: password
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
   web:

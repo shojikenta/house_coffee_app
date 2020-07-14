@@ -9,6 +9,7 @@
 /vendor/bundle
 /vendor/.keep
 /public/uploads/*
+/.env
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
