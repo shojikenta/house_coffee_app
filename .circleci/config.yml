@@ -60,11 +60,49 @@ jobs:
           name: Rspec
           command: bundle exec rspec
 
+  heroku_deploy:
+    working_directory: ~/house_coffee
+    docker:
+      - image: sue445/heroku-cli
+    steps:
+      - checkout
+      - build-tools/install-ci-tools
+      - jq/install
+      - run:
+          name: Identify who I am
+          command: echo 'export MY_EMAIL=`heroku auth:whoami | tail -n 1`' >> $BASH_ENV
+      - run:
+          name: Identify Heroku app names to destroy
+          command: echo 'export APP_NAMES_TO_REMOVE=`heroku apps --json | jq -r "map(select(.owner.email == "\"$MY_EMAIL\"" and (.name | contains(\"potepanec\")))) | sort_by(.updated_at) | reverse | .[5:] | .[].name"`' >> $BASH_ENV
+      - run:
+          name: Delete old apps if needed
+          command: for app_name in $APP_NAMES_TO_REMOVE; do heroku apps:destroy -a $app_name -c $app_name; done
+      - run:
+          name: Define Heroku app name to create
+          command: timestamp=`date +%Y%m%d%H%M%S` && echo "export HEROKU_APP_NAME=house-coffee-app2-$timestamp" >> $BASH_ENV
+      - run:
+          name: Create fresh Heroku app
+          command: heroku apps:create $HEROKU_APP_NAME --addons=jawsdb:kitefin
+      - run:
+          name: Deploy
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - run:
+          name: Run post-deploy tasks
+          command: |
+            heroku config:set S3_ACCESS_KEY=$S3_ACCESS_KEY
+            heroku config:set S3_SECRET_KEY=$S3_SECRET_KEY
+            heroku config:set S3_BUCKET=$S3_BUCKET
+            heroku config:set S3_REGION=$S3_REGION
+            heroku run bin/rails db:migrate
+            heroku run bin/rails runner db/seeds.rb
+
 workflows:
   version: 2
   rubocop_rspec:
     jobs:
       - rubocop
-      - rspec:
+      - rspec
+      - heroku_deploy:
           requires:
             - rubocop
+            - rspec
