@@ -26,10 +26,9 @@ gem 'ransack'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rubocop-airbnb'
-  gem 'sqlite3'
-  gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'rails-controller-testing'
   gem "factory_bot_rails", "~> 4.10.0"
+  gem 'pg', '>= 0.18', '< 2.0'
 end
 
 group :development do
@@ -45,10 +44,10 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'webdrivers'
+  gem 'rspec-rails', '~> 4.0.0.beta2'
 end
 
 group :production do
-  gem 'pg', '0.20.0'
   gem 'fog', '1.42'
 end
 
