@@ -1,77 +1,99 @@
-version: 2
+version: 2.1
 jobs:
-  rubocop:
-    docker:
-      - image: circleci/ruby:2.5.7-node-browsers-legacy
-        environment:
-          RAILS_ENV: test
-          POSTGRES_HOST: 127.0.0.1
-      - image: circleci/postgres:9.4
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: app_test
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - run: yarn install
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      # Rubocop
-      - run:
-          name: Rubocop
-          command: bundle exec rubocop
-
   rspec:
+    working_directory: ~/house_coffee
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers-legacy
-        environment:
-          RAILS_ENV: test
-          POSTGRES_HOST: 127.0.0.1
-      - image: circleci/postgres:9.4
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: housecoffee_test
-    working_directory: ~/repo
+      - image: circleci/ruby
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Setup environment variable
+          command: |
+            echo "export COMPOSE_FILE=docker-compose.ci.yml" >> $BASH_ENV
+      - run:
+          name: Start containers and verify it is working
+          command: |
+            set -x
+            docker-compose up -d
+            docker exec house_coffee_app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
+      - run:
+          name: Setup database
+          command: |
+            docker-compose exec house_coffee bash -c 'yes n | bundle exec rails g spree:install --migrate --seed --sample --auto_accept'
+      - run:
+          name: Run rspec
+          command: docker-compose exec house_coffee rspec
+
+  rubocop:
+    working_directory: ~/house_coffee
+    docker:
+      - image: circleci/ruby:2.5.1
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - run: yarn install
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-      # Rspec
+            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gemfiles-{{ .Branch }}-
+            - gemfiles-master-
+      - run: bundle config --local path vendor/bundle
       - run:
-          name: Rspec
-          command: bundle exec rspec
+          name: bundle install
+          command: bundle check || bundle install --jobs=8 --clean
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop --parallel
+      - save_cache:
+          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
-      - deploy:
-        name: Deploy Master to Heroku
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-          fi
+  heroku_deploy:
+    working_directory: ~/house_coffee
+    docker:
+      - image: sue445/heroku-cli
+    steps:
+      - checkout
+      - build-tools/install-ci-tools
+      - jq/install
+      - run:
+          name: Identify who I am
+          command: echo 'export MY_EMAIL=`heroku auth:whoami | tail -n 1`' >> $BASH_ENV
+      - run:
+          name: Identify Heroku app names to destroy
+          command: echo 'export APP_NAMES_TO_REMOVE=`heroku apps --json | jq -r "map(select(.owner.email == "\"$MY_EMAIL\"" and (.name | contains(\"house_coffee\")))) | sort_by(.updated_at) | reverse | .[5:] | .[].name"`' >> $BASH_ENV
+      - run:
+          name: Delete old apps if needed
+          command: for app_name in $APP_NAMES_TO_REMOVE; do heroku apps:destroy -a $app_name -c $app_name; done
+      - run:
+          name: Define Heroku app name to create
+          command: timestamp=`date +%Y%m%d%H%M%S` && echo "export HEROKU_APP_NAME=house_coffee-$timestamp" >> $BASH_ENV
+      - run:
+          name: Create fresh Heroku app
+          command: heroku apps:create $HEROKU_APP_NAME --addons=jawsdb:kitefin
+      - run:
+          name: Deploy
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - run:
+          name: Run post-deploy tasks
+          command: |
+            heroku config:set S3_ACCESS_KEY_ID=$S3_ACCESS_KEY
+            heroku config:set S3_SECRET_ACCESS_KEY=$S3_SECRET_KEY
+            heroku config:set S3_BUCKET_NAME=$S3_BUCKET
+            heroku config:set S3_REGION=$S3_REGION
+            heroku run bin/rails db:migrate
+            heroku run bin/rails runner db/seedsgit.rb
 
+orbs:
+  build-tools: circleci/build-tools@2.6.3
+  jq: circleci/jq@1.9.1
 workflows:
-  version: 2
-  rubocop_rspec:
+  version: 2.1
+  build:
     jobs:
+      - rspec
       - rubocop
-      - rspec:
+      - heroku_deploy:
           requires:
+            - rspec
             - rubocop
