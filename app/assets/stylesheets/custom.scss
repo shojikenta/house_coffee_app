@@ -44,149 +44,32 @@
 		}
 	}
 }
-.btn-success {
-	background: $brand-success;
-	color: $brand-white;
-	border: 2px solid $brand-success;
-	&:hover, &:focus, &:active {
-		background: darken($brand-success, 5%)!important;
-		border-color: darken($brand-success, 5%)!important;
-	}
-	&.btn-outline {
-		background: transparent;
-		color: $brand-success;
-		border: 2px solid $brand-success;
-		&:hover, &:focus, &:active {
-			background: $brand-success;
-			color: $brand-white;
-		}
-	}
-}
-.btn-info {
-	background: $brand-info;
-	color: $brand-white;
-	border: 2px solid $brand-info;
-	&:hover, &:focus, &:active {
-		background: darken($brand-info, 5%)!important;
-		border-color: darken($brand-info, 5%)!important;
-	}
-	&.btn-outline {
-		background: transparent;
-		color: $brand-info;
-		border: 2px solid $brand-info;
-		&:hover, &:focus, &:active {
-			background: $brand-info;
-			color: $brand-white;
-		}
-	}
-}
-.btn-warning {
-	background: $brand-warning;
-	color: $brand-white;
-	border: 2px solid $brand-warning;
-	&:hover, &:focus, &:active {
-		background: darken($brand-warning, 5%)!important;
-		border-color: darken($brand-warning, 5%)!important;
-	}
-	&.btn-outline {
-		background: transparent;
-		color: $brand-warning;
-		border: 2px solid $brand-warning;
-		&:hover, &:focus, &:active {
-			background: $brand-warning;
-			color: $brand-white;
-		}
-	}
-}
-.btn-danger {
-	background: $brand-danger;
-	color: $brand-white;
-	border: 2px solid $brand-danger;
-	&:hover, &:focus, &:active {
-		background: darken($brand-danger, 5%)!important;
-		border-color: darken($brand-danger, 5%)!important;
-	}
-	&.btn-outline {
-		background: transparent;
-		color: $brand-danger;
-		border: 2px solid $brand-danger;
-		&:hover, &:focus, &:active {
-			background: $brand-danger;
-			color: $brand-white;
-		}
-	}
-}
-
-.btn-outline {
-	background: none;
-	border: 2px solid lighten($brand-black, 50%);
-	font-size: 16px;
-	@include transition(.3s);
-	&:hover, &:focus, &:active {
-		box-shadow: none;
-	}
-}
-
-.btn.with-arrow {
-	position: relative;
-	@include transition(.3s);
-	i {
-		visibility: hidden;
-		opacity: 0;
-		position: absolute;
-		right: 0px;
-		top: 50%;
-		margin-top: -8px;
-		@include transition(.2s);
-	}
-	&:hover {
-		padding-right: 50px;
-		i {
-			color: $brand-white;
-			right: 18px;
-			visibility: visible;
-			opacity: 1;
-		}
-	}
-}
-
-// 全ページ共通
-#demo-main {
-  top: 163px;
-  height: calc(100% - 163px);
-}
 
 // body 
-body {
-  font-family: "Helvetica Neue",
-    Arial,
-    "Hiragino Kaku Gothic ProN",
-    "Hiragino Sans",
-    Meiryo,
-    sans-serif;
-}
-
 #fh5co-wrapper {
   overflow-x: hidden;
-  position: relative;
+	//position: relative;
+	z-index: 1;
 }
 
 #fh5co-page {
-  position: relative;
+  //position: relative;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
-  transition: 0.5s;
+	transition: 0.5s;
+	z-index: 1;
 }
 
 .body-page {
-  padding-top: 120px;
+	padding-top: 120px;
+	z-index: 1;
 }
 
 // ヘッダー
 #fh5co-header{
 	position: relative;
 	margin-bottom: 0;
-	z-index: 9999999;
+	z-index: 99999;
 }
 
 .fh5co-header-section{
@@ -252,6 +135,28 @@ body {
 }
 
 //ログイン前トップページ
+.recruit-login {
+  background-color: lightyellow;
+  margin-bottom: 30px;
+  padding: 20px;
+	border: solid 3px #000000;
+	z-index: 9999999;
+}
+
+.title-form {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.description-form {
+  margin-bottom: 20px;
+}
+
+.recruit-account {
+  margin-top: 20px;
+}
+
 #fh5co-hero {
 	// margin-top: 90px;
 	min-height: 700px;
@@ -264,56 +169,15 @@ body {
 	}
 	.flexslider {
 		border: none;
-		
 		z-index: 1;
 		margin-bottom: 0;
 		overflow: hidden;
 		@include border-radius(0px);
 
 		.slides {
-			position: relative;
 			overflow: hidden;
-			li {
-				background-repeat: no-repeat;
-				background-size: cover;
-				background-position: center center;
-				min-height: 700px;
-				position: relative;
-				&:after{
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					content: '';
-					background: rgba($brand-black,.4);
-					z-index: 1;
-				}
-
-			}
 		}
-		.flex-control-nav {
-			// bottom: 200px;
-			// bottom: 20%;
-			bottom: 40px;
-			z-index: 1000;
-			li {
-				a {
-					background: rgba(255,255,255,.2);
-					box-shadow: none;
-					width: 12px;
-					height: 12px;
-					cursor: pointer;
-					&.flex-active {
-						cursor: pointer;
-						background: rgba(255,255,255,.7);
-					}
-				}
-			}
-		}
-		.flex-direction-nav {
-			display: none;
-		}
+		
 		.slider-text {
 			display: table;
 			opacity: 0;
@@ -356,7 +220,6 @@ body {
 			}
 		}
 	}
-
 }
 
 //// ページボディ部 //// 

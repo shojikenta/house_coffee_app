@@ -15,7 +15,7 @@ User.create!(
       password_confirmation: "password",
     },
     {
-      name:  "採用 三郎",
+      name:  "採用 太郎",
       email: "recruit@example.com",
       password:              "password",
       password_confirmation: "password",
