@@ -63,10 +63,8 @@ RSpec.describe "Sessions", type: :system do
         click_button "ログイン"
 
         expect(page).to have_link 'House Coffeeとは？', href: about_path
-        expect(page).to have_link 'ユーザー', href: users_path
-        expect(page).to have_link 'プロフィール', href: user_path(user)
-        expect(page).to have_link 'ログアウト', href: logout_path
-        expect(page).not_to have_link 'ログイン', href: login_path
+        expect(page).to have_link '通知', href: notifications_path
+        expect(page).to have_link 'お気に入り', href: favorites_path
       end
     end
   end

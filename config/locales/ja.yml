@@ -28,7 +28,7 @@
           description: 説明
           portion: 分量
           tips: コツ・ポイント
-          reference: 作り方参考用URL
+          reference: 使っているコーヒー豆参考用URL
           required_time: 所要時間
           user_id: 作成者のID
           made_memo: 作り方メモ

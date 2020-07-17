@@ -26,7 +26,7 @@ RSpec.describe "Drinks", type: :system do
         expect(page).to have_content '説明'
         expect(page).to have_content '分量 [人分]'
         expect(page).to have_content 'コツ・ポイント'
-        expect(page).to have_content '作り方参考用URL'
+        expect(page).to have_content '使っているコーヒー豆参考用URL'
         expect(page).to have_content '所要時間 [分]'
         expect(page).to have_content '作り方メモ'
         expect(page).to have_css 'label[for=drink_items_attributes_0_name]', text: '必要なモノ（10種類まで登録可）', count: 1
@@ -45,7 +45,7 @@ RSpec.describe "Drinks", type: :system do
         fill_in "説明", with: "ダルゴナコーヒーの作り方です"
         fill_in "分量", with: 1.5
         fill_in "コツ・ポイント", with: "泡立て器を使うのがおすすめです！"
-        fill_in "作り方参考用URL", with: "https://cookpad.com/recipe/6092953"
+        fill_in "使っているコーヒー豆参考用URL", with: "https://cookpad.com/recipe/6092953"
         fill_in "所要時間", with: 15
         fill_in "drink[items_attributes][0][name]", with: "コーヒー豆"
         fill_in "drink[items_attributes][0][remarks]", with: "90g"
@@ -65,7 +65,7 @@ RSpec.describe "Drinks", type: :system do
         fill_in "説明", with: "ダルゴナコーヒーの作り方です"
         fill_in "分量", with: 1.5
         fill_in "コツ・ポイント", with: "泡立て器を使うのがおすすめです！"
-        fill_in "作り方参考用URL", with: "https://cookpad.com/recipe/6092953"
+        fill_in "使っているコーヒー豆参考用URL", with: "https://cookpad.com/recipe/6092953"
         fill_in "所要時間", with: 15
         click_button "登録する"
         expect(page).to have_content "コーヒー名を入力してください"
@@ -130,7 +130,7 @@ RSpec.describe "Drinks", type: :system do
         expect(page).to have_content '説明'
         expect(page).to have_content '分量 [人分]'
         expect(page).to have_content 'コツ・ポイント'
-        expect(page).to have_content '作り方参考用URL'
+        expect(page).to have_content '使っているコーヒー豆参考用URL'
         expect(page).to have_content '所要時間 [分]'
         expect(page).to have_content '作り方メモ'
         expect(page).to have_css 'p.title-item-name', text: '必要なモノ（10種類まで登録可）', count: 1
@@ -144,7 +144,7 @@ RSpec.describe "Drinks", type: :system do
         fill_in "説明", with: "ダルゴナコーヒーの作り方です"
         fill_in "分量", with: 1.5
         fill_in "コツ・ポイント", with: "泡立て器を使うのがおすすめです！"
-        fill_in "作り方参考用URL", with: "henshu-https://cookpad.com/recipe/6092953"
+        fill_in "使っているコーヒー豆参考用URL", with: "henshu-https://cookpad.com/recipe/6092953"
         fill_in "所要時間", with: 15
         attach_file "drink[picture]", "#{Rails.root}/spec/fixtures/test_2.jpg"
         click_button "更新する"
@@ -171,23 +171,6 @@ RSpec.describe "Drinks", type: :system do
         click_on '削除'
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content 'コーヒーレシピが削除されました'
-      end
-    end
-
-    context "コメントの登録＆削除" do
-      it "自分のコーヒーレシピに対するコメントの登録＆削除が正常に完了すること" do
-        login_for_system(user)
-        visit drink_path(drink)
-        fill_in "comment_content", with: "簡単でいいですね"
-        click_button "コメント"
-        within find("#comment-#{Comment.last.id}") do
-          expect(page).to have_selector 'span', text: user.name
-          expect(page).to have_selector 'span', text: '簡単でいいですね'
-        end
-        expect(page).to have_content "コメントを追加しました！"
-        click_link "削除", href: comment_path(Comment.last)
-        expect(page).not_to have_selector 'span', text: '簡単でいいですね'
-        expect(page).to have_content "コメントを削除しました"
       end
     end
 
