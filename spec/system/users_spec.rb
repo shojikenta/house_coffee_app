@@ -269,9 +269,6 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_css 'li.no_notification'
           expect(page).to have_content "あなたのコーヒーに#{user.name}さんがコメントしました。"
           expect(page).to have_content '「コメントしました」'
-          expect(page).to have_content other_drink.name
-          expect(page).to have_content other_drink.description
-          expect(page).to have_content other_drink.created_at.strftime("%Y/%m/%d(%a) %H:%M")
         end
       end
 
