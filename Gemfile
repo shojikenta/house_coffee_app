@@ -23,8 +23,6 @@ gem 'carrierwave',             '1.2.2'
 gem "mini_magick",             '>= 4.9.4'
 gem 'ransack'
 gem 'nokogiri'
-gem 'therubyracer'
-gem 'libv8'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
