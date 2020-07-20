@@ -32,6 +32,10 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem "factory_bot_rails", "~> 4.10.0"
   gem 'pg', '>= 0.18', '< 2.0'
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
 end
 
 group :development do
@@ -52,6 +56,10 @@ end
 
 group :production do
   gem 'fog', '1.42'
+end
+
+group :production, :staging do
+  gem 'unicorn'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
