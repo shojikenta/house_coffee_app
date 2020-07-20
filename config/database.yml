@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: utf8
-  host: db
+  host: localhost
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: username
   password: 
@@ -10,7 +10,6 @@ default: &default
 development:
   <<: *default
   database: housecoffee_development
-  host: db
 
 test:
   <<: *default
