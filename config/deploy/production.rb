@@ -8,7 +8,15 @@
 # server "db.example.com", user: "deploy", roles: %w{db}
 
 # EC2サーバーのIP、EC2サーバーにログインするユーザー名、サーバーのロールを記述
-server '54.238.30.181', user: 'shoji', roles: %w{app db web} 
+server '54.238.30.181', 
+  user: 'shoji', 
+  roles: %w{app db web},
+  ssh_options: {
+    port: 22022,
+    user: 'shoji',
+    keys: %w(~/.ssh/housecoffee.pem),
+    forward_agent: true
+}
 
 
 # role-based syntax
