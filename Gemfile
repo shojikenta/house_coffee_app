@@ -28,6 +28,7 @@ gem 'libv8'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pg', '>= 0.18', '< 2.0'
   gem 'rubocop-airbnb'
   gem 'rails-controller-testing'
   gem "factory_bot_rails", "~> 4.10.0"

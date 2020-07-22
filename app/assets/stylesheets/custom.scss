@@ -49,7 +49,7 @@
 #fh5co-wrapper {
   overflow-x: hidden;
 	position: relative;
-	z-index: 1;
+	z-index: auto;
 }
 
 #fh5co-page {
@@ -57,19 +57,19 @@
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
 	transition: 0.5s;
-	z-index: 1;
+	z-index: auto;
 }
 
 .body-page {
 	padding-top: 120px;
-	z-index: 1;
+	z-index: auto;
 }
 
 // ヘッダー
 #fh5co-header{
 	position: relative;
 	margin-bottom: 0;
-	z-index: 99999;
+	z-index: 999999;
 }
 
 .fh5co-header-section{
@@ -80,7 +80,7 @@
 	// left: 0;
 	padding:0;
 	width: 100%;
-	// z-index: 2;
+	// z-index: auto;
 	-webkit-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
 	-moz-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
 	-ms-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
@@ -135,14 +135,6 @@
 }
 
 //ログイン前トップページ
-.recruit-login {
-  background-color: lightyellow;
-  margin-bottom: 30px;
-  padding: 20px;
-	border: solid 3px #000000;
-	z-index: 9999999;
-}
-
 .title-form {
   font-weight: bold;
   margin-top: 10px;
@@ -169,7 +161,7 @@
 	}
 	.flexslider {
 		border: none;
-		z-index: 1;
+		z-index: auto;
 		margin-bottom: 0;
 		overflow: hidden;
 		@include border-radius(0px);
@@ -182,7 +174,7 @@
 			display: table;
 			opacity: 0;
 			min-height: 700px;
-			z-index: 9;
+			z-index: auto;
 			a {
 				&:hover {
 					color: #fff!important;
