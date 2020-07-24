@@ -167,10 +167,7 @@
 		@include border-radius(0px);
 
 		.slides {
-      overflow: hidden;
-      background-image:  url(public/images/top2.jpeg);
-      background-size: cover;
-      z-index: 99999999999;
+			overflow: hidden;
 		}
 		
 		.slider-text {
