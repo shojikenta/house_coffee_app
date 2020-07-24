@@ -1,0 +1,70 @@
+<%= form_with model: @drink, local: true do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <span class="picture">
+    <%= f.label :picture %>　<span class="input-unneed">※任意</span>
+    <%= f.file_field :picture, accept: 'image/jpeg,image/png', class: 'form-control', id: 'drink_picture' %>
+  </span>
+  <div class = 'form-group'>
+    <%= f.label :name %>　<span class="input-need">※必須</span>
+    <%= f.text_field :name, class: 'form-control', id: 'drink_name' %>
+  </div>
+  <div class = 'form-group'>
+    <%= f.label :description %>　<span class="input-unneed">※任意</span>
+    <%= f.text_field :description, size: "60x4", class: 'form-control', id: 'drink_description' %>
+  </div>
+  <div class = 'form-group'>
+    <%= f.label :portion %> [人分]　<span class="input-unneed">※任意</span>
+    <%= f.text_field :portion, class: 'form-control', id: 'drink_portion' %>
+  </div>
+  <%= f.fields_for :items do |i| %>
+    <div class="row">
+      <div class="col-md-9">
+        <div class = 'form-group'>
+          <%= i.label :name %>　<span class="input-unneed">※任意</span>
+          <%= i.text_field :name, class: 'form-control item_name' %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class = 'form-group'>
+          <%= i.label :remarks %>　<span class="input-unneed">※任意</span>
+          <%= i.text_field :remarks, class: 'form-control item_remarks' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <%= render partial: "item_form", locals: {f: f} %>
+  <div class = 'form-group'>
+    <%= f.label :tips %>　<span class="input-unneed">※任意</span>
+    <%= f.text_field :tips, size: "30x4", class: 'form-control', id: 'drink_tips' %>
+  </div>
+  <div class = 'form-group'>
+    <%= f.label :reference %>　<span class="input-unneed">※任意</span>
+    <%= f.text_field :reference, class: 'form-control', id: 'drink_reference' %>
+  </div>
+  <div class = 'form-group'>
+    <%= f.label :required_time %> [分]　<span class="input-unneed">※任意</span>
+    <%= f.text_field :required_time, class: 'form-control', id: 'drink_required_time' %>
+  </div>
+  <div class = 'form-group'>
+    <%= f.label :made_memo %>　<span class="input-unneed">※任意</span>
+    <%= f.text_field :made_memo, class: 'form-control', id: 'drink_cook_memo' %>
+  </div>
+  <%= f.submit nil, class: 'btn btn-primary' %>
+<% end %>
+
+<script type="text/javascript">
+  $('#drink_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('アップロードできる写真の最大サイズは5MBです。5MB以下の画像を選択してください');
+    }
+  });
+</script>

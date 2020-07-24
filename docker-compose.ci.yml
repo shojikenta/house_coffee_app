@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  postgresql:
+    image: postgresql
+    environment:
+      POSTGRESQL_ROOT_PASSWORD: password
+    networks:
+      - default
+    ports:
+      - '33306:3306'
+  redis:
+    image: redis:alpine
+    networks:
+      - default
+    ports:
+      - '36379:6379'
+  house_coffee:
+    build:
+      context: .
+      dockerfile: Dockerfile.ci
+    container_name: house_coffee_app
+    ports:
+      - '3000:3000'
+    environment:
+      POSTGRESQL_USERNAME: postgres
+      POSTGRESQL_PASSWORD: password
+      POSTGRESQL_HOST: postgresql
+      REDIS_URL: "redis://redis:6379"
+    depends_on:
+      - postgresql
+      - redis
+    networks:
+      - default
+    command: bundle exec rails server -b 0.0.0.0

@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: username
+  password: 
+  timeout: 5000
+
+development:
+  <<: *default
+  database: housecoffee_development
+  host: localhost
+
+test:
+  <<: *default
+  database: housecoffee_test
+
+production:
+  <<: *default
+  database: housecoffee_production
+  host: localhost

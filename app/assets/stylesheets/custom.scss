@@ -1,0 +1,549 @@
+// ミックスイン
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+// Buttons
+.btn {
+	margin-right: 4px;
+	margin-bottom: 4px;
+	font-family: $font-primary;
+	font-size: 16px;
+	font-weight: 400;
+	@include border-radius(30px);
+	@include transition(.5s);
+	&.btn-md {
+		padding: 10px 20px!important;
+	}
+	&.btn-lg {
+		padding: 18px 36px!important;
+	}
+	&:hover, &:active, &:focus {
+		box-shadow: none!important;
+		outline: none!important;
+		color: $brand-white !important;
+	}
+}
+.btn-primary {
+	background: $brand-primary;
+	color: $brand-white;
+	border: 2px solid $brand-primary;
+	&:hover, &:focus, &:active {
+		background: lighten($brand-primary, 5%)!important;
+		border-color: lighten($brand-primary, 5%)!important;
+	}
+	&.btn-outline {
+		background: transparent;
+		color: $brand-primary;
+		border: 2px solid $brand-primary;
+		&:hover, &:focus, &:active {
+			background: $brand-primary;
+			color: $brand-white !important;
+		}
+	}
+}
+
+// body 
+#fh5co-wrapper {
+  overflow-x: hidden;
+	position: relative;
+  z-index: auto;
+}
+
+#fh5co-page {
+  position: relative;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+	transition: 0.5s;
+	z-index: auto;
+}
+
+.body-page {
+	padding-top: 120px;
+	z-index: auto;
+}
+
+// ヘッダー
+#fh5co-header{
+	position: relative;
+	margin-bottom: 0;
+	z-index: 999999;
+}
+
+.fh5co-header-section{
+  background: rgba($brand-white,1);
+  float: left;
+	position: fixed;
+	// top: 0;
+	// left: 0;
+	padding:0;
+	width: 100%;
+	// z-index: auto;
+	-webkit-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+	-moz-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+	-ms-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+	-o-box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+	box-shadow: 0px 5px 5px -4px rgba(0,0,0,0.22);
+
+	@media screen and (max-width: $screen-sm) {
+		padding: 2.4em 0;
+	}
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.nav-header{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+#top-logo {
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: 700;
+  float: left;
+  margin-bottom: 0;
+  margin-top: 0.9em;
+}
+
+.sf-menu a {
+	//color: rgba($brand-black,.8);
+	padding: 2.4em 1.3em!important;
+	font-weight: normal;
+	border-left: none;
+	border-top: none; 
+	border-top: none;
+	text-decoration: none;
+	zoom: 1; 
+	font-size: 14px;
+	border-bottom: none!important;
+	font-weight: 400;
+	text-transform: uppercase;
+
+	&:hover,&:focus,&.active{
+		background: $brand-primary !important;
+		color: $brand-white !important;
+	}
+}
+
+//ログイン前トップページ
+.title-form {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.description-form {
+  margin-bottom: 20px;
+}
+
+.recruit-account {
+  margin-top: 20px;
+}
+
+#fh5co-hero {
+	// margin-top: 90px;
+	min-height: 700px;
+	background: $brand-white url(../images/loader.gif) no-repeat center center;
+	.btn {
+		font-size: 24px;
+		&.btn-primary {
+			padding: 14px 30px!important;
+		}
+	}
+	.flexslider {
+		border: none;
+		z-index: auto;
+		margin-bottom: 0;
+		overflow: hidden;
+		@include border-radius(0px);
+
+		.slides {
+      overflow: hidden;
+      background-image:  url(public/images/top2.jpeg);
+      background-size: cover;
+      z-index: 99999999999;
+		}
+		
+		.slider-text {
+			display: table;
+			opacity: 0;
+			min-height: 700px;
+			z-index: auto;
+			a {
+				&:hover {
+					color: #fff!important;
+				}
+			}
+			> .slider-text-inner {
+				display: table-cell;
+				vertical-align: middle;
+				min-height: 700px;
+
+				h1 h2 {
+					font-size: 60px;
+					font-weight: 400;
+          color: $brand-black;
+          margin-bottom: 3rem;
+					@media screen and (max-width: $screen-sm) {
+            font-size: 40px;
+					}
+				}
+				p {
+					.btn{
+						&:hover{
+							color: $brand-white !important;
+						}
+          }
+          margin-bottom: 3rem;
+				}
+				.fh5co-lead {
+					font-size: 20px;
+					color: $brand-white;
+					.icon-heart {
+						color: $brand-danger;
+					}
+				}
+			}
+		}
+	}
+}
+
+//// ページボディ部 //// 
+#fh5co-portfolio {
+  padding: 0;
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  h3 {
+    text-align: left;
+  }
+}
+
+//ユーザー登録
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+ #error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+ }
+  #session_remember_me {
+  width: auto;
+  margin-left: 0;
+ }
+
+ //// プロフィールページ ////
+.title-profile {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.user-picture img {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.user-picture-box {
+  margin-top: 0.5em;
+  margin-left: 1em;
+}
+
+.show-user-name {
+  display: inline-block;
+}
+
+.account-edit {
+  margin-top: 20px;
+}
+
+//// ユーザー一覧ページ ////
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid $gray-lighter;
+  }
+ }
+
+.drinks {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+ }
+  .user {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+  .description {
+    display: block;
+    margin-left: 60px;
+    img {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+  .timestamp {
+    color: $gray-light;
+    display: block;
+    margin-left: 60px;
+  }
+  .gravatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+}
+
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+span.picture {
+  margin-top: 10px;
+  input {
+    border: 0;
+  }
+}
+
+.btn-record {
+  margin-top: 3em;
+}
+
+.input-need {
+  color: red;
+  font-size: 13px;
+}
+
+.input-unneed {
+  font-size: 13px;
+}
+
+.drink-user-name {
+  display: inline-block;
+}
+
+h2.drink-name {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.drink-reference {
+  margin-top: 30px;
+}
+
+.drink-portion {
+  margin-top: 30px;
+}
+
+.tips {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  h5 {
+    font-size: 17px;
+  }
+}
+
+.title-tips {
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.show-drink-other-info {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.drink-other-info {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.drink-info {
+  h5 {
+    font-size: 16px;
+    display: inline-block;
+  }
+  h4 {
+    font-size: 20px;
+    display: inline-block;
+  }
+}
+
+.change-drink {
+  display: inline-block;
+}
+
+.edit-drink .delete-drink {
+  font-size: 15px;
+}
+
+.drink-picture img {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.title-comment {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.comments {
+  list-style: none;
+  li {
+    font-size: 14px;
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+    .comment {
+      font-size: 16px;
+    }
+  }
+}
+
+.comment-create-at {
+  color: grey;
+}
+
+.stats {
+  margin: 5px 0;
+}
+
+.like-btn-unlike {
+  color: red;
+}
+.like-btn-like {
+  color: grey;
+}
+
+a.like, a.unlike {
+  text-decoration: none;
+}
+
+.favorites {
+  list-style: none;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+
+////通知 ////
+// 新しい通知があるときは赤文字にする
+li.new_notification > a > span {
+  color: red;
+}
+
+.notifications {
+  list-style: none;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .gravatar {
+    margin-right: 10px;
+    margin-top: -5px;
+  }
+}
+
+.notification-message {
+  font-size: 16px;
+}
+
+//// 必要なモノの表示 ////
+.title-item-name, .title-item-remarks {
+  font-weight: bold;
+}
+
+.items {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  h5 {
+    font-size: 17px;
+  }
+}
+
+.title-items {
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+table.item {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.item th, table.item td {
+  padding: 10px 0;
+  text-align: center;
+}
+
+table.item tr:nth-child(odd) {
+  background-color: #eee
+}
+
+.drink-item {
+  margin: 15px 0;
+}
+
+.title-item-mini {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+//// フッター //// 
+#fh5co-footer {
+  margin-top: 3em;
+  padding: 1em 0;
+  border-top: 1px solid #eaeaea;
+}

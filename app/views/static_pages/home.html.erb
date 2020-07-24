@@ -1,0 +1,32 @@
+<% if logged_in? %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <h3>みんなのコーヒー (<%= @feed_items.count %>)</h3>
+        <%= render 'shared/feed' %>
+      </div>
+      <div class="col-md-3">
+        <p><%= link_to "新しいコーヒーをシェアする", new_drink_path, class: "btn btn-primary btn-lg btn-demo btn-record" %></p>
+        <br>
+        <p><%= link_to "コーヒーレシピ一覧をCSV出力", drinks_path(format: :csv), class: "btn btn-primary btn-lg btn-demo btn-csv" %></p>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <aside id="fh5co-hero" class="js-fullheight" style="height:697px;">
+    <div class="flexslider js-fullheight" style="height:697px;">
+      <ul class="slides">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text animated fadeInUp" style="height:697px;">
+          <div class="slider-text-inner">
+            <h1>最高の一杯のコーヒーを<br>あなたの自宅で。</h1>
+            <p>お気に入りのコーヒーをシェアしよう！</p>
+            <p><%= link_to "さっそく始める！", login_path,  class: "btn btn-primary btn-lg" %></p>
+            <p><%= link_to "簡単ログイン", recruit_login_path,  class: "btn btn-primary btn-lg" %></p>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </aside>
+<% end %>

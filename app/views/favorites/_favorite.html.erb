@@ -1,0 +1,14 @@
+<% @drink = Drink.find(favorite.drink_id) %>
+<% user = @drink.user %>
+<li id="favorite-<%= favorite.id %>">
+  <div class="row favorite-drink">
+    <div class="col-md-2">
+      <%= link_to((image_tag @drink.picture.url), drink_path(@drink), class: 'drink-picture') %>
+    </div>
+    <div class="col-md-7">
+      <p><%= link_to @drink.name, drink_path(@drink) %></p>
+      <p><%= @drink.description %></p>
+      <p class="cook-user">made by <%= link_to user.name, user_path(user) %></p>
+    </div>
+  </div>
+</li>
